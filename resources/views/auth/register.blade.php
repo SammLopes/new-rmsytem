@@ -9,6 +9,37 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+        <!-- Checkbox CPF/CNPJ -->
+        <div class="mt-4">
+            <x-input-label for="cpf_cnpj_option" :value="__('Escolha o tipo de cadastro')" />
+
+            <div class="flex items-center gap-4">
+                <label>
+                    <input type="checkbox" class="toggle-option" id="chk_cpf" data-target="#cpf-field" />
+                    CPF
+                </label>
+                <label>
+                    <input type="checkbox" class="toggle-option" id="chk_cnpj"  data-target="#cnpj-field" />
+                    CNPJ
+                </label>
+            </div>
+
+        </div>
+
+        <!-- CNPJ -->
+        <div id="cnpj-field" class="mt-4 hidden">
+            <x-input-label for="cnpj" :value="__('CNPJ')" />
+            <x-text-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" :value="old('cnpj')" autocomplete="cnpj" />
+            <x-input-error :messages="$errors->get('cnpj')" class="mt-2" />
+        </div>
+
+        <!-- CPF -->
+        <div id="cpf-field" class="mt-4 hidden">
+            <x-input-label for="cpf" :value="__('CPF')" />
+            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" autocomplete="cpf" />
+            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
@@ -50,4 +81,24 @@
             </x-primary-button>
         </div>
     </form>
+
+    @push('scripts')
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                $('.toggle-option').on('change', function () {
+
+                    const target = $(this).data('target');
+                    console.log("Teste valor do chk ",target);
+                    if ($(this).is(':checked')) {
+                        $(target).removeClass('hidden');
+                    } else {
+                        $(target).addClass('hidden');
+                    }
+                });
+            });
+
+        </script>
+    @endpush
 </x-guest-layout>
