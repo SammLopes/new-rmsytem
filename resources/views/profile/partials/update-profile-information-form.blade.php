@@ -17,51 +17,59 @@
         @csrf
         @method('patch')
 
-        <div>
-            <x-input-label for="name" :value="__('Nome')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-        </div>
+        <div class="grid grid-cols-2 grid-rows-2 gap-3 items-center">
 
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <div >
+                <x-input-label for="name" :value="__('Nome')" />
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            </div>
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Seu endereço de e-mail não foi verificado.') }}
+            <div>
+                <x-input-label for="email" :value="__('Email')" />
+                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+                <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Clique aqui para reenviar o e-mail de verificação.') }}
-                        </button>
-                    </p>
+                @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                    <div>
+                        <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                            {{ __('Seu endereço de e-mail não foi verificado.') }}
 
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('Um novo link de verificação foi enviado para seu endereço de e-mail.') }}
+                            <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                {{ __('Clique aqui para reenviar o e-mail de verificação.') }}
+                            </button>
                         </p>
-                    @endif
-                </div>
-            @endif
-        </div>
 
-        <div id="cpf-field" class="mt-4 ">
-            <x-input-label for="cpf" :value="__('CPF')" />
-            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf', $user->cpf)" autocomplete="cpf" />
-            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
-        </div>
+                        @if (session('status') === 'verification-link-sent')
+                            <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                                {{ __('Um novo link de verificação foi enviado para seu endereço de e-mail.') }}
+                            </p>
+                        @endif
+                    </div>
+                @endif
+            </div>
 
-        <!-- CNPJ -->
-        <div id="cnpj-field" class="mt-4 ">
-            <x-input-label for="cnpj" :value="__('CNPJ')" />
-            <x-text-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" :value="old('cnpj', $user->cnpj)" autocomplete="cnpj" />
-            <x-input-error :messages="$errors->get('cnpj')" class="mt-2" />
+            <div id="cpf-field" class="mt-4 ">
+                <x-input-label for="cpf" :value="__('CPF')" />
+
+                <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf', $user->cpf)" autocomplete="cpf" />
+
+                <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+            </div>
+
+            <!-- CNPJ -->
+            <div id="cnpj-field" class="mt-4 ">
+                <x-input-label for="cnpj" :value="__('CNPJ')" />
+
+                <x-text-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" :value="old('cnpj', $user->cnpj)" autocomplete="cnpj" />
+
+                <x-input-error :messages="$errors->get('cnpj')" class="mt-2" />
+            </div>
+
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+            <x-primary-button id="btn-salvar">{{ __('Salvar') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p
@@ -79,20 +87,17 @@
         <script>
 
             document.addEventListener('DOMContentLoaded', function() {
-                console.log("TEste");
-                let cpf = $('#cpf').val();
-                let cnpj = $('#cnpj').val();
-                console.log("CPF " ,cpf);
-                console.log("CNPJ ", cnpj);
 
-                if(cpf === "" || cpf == null){
-                    $('#cpf').attr('required', true);
-                }
+                $('#btn-salvar').click(function (){
+                    console.log("Teste");
+                    if(cpf === "" || cpf == null){
+                        $('#cpf').attr('required', true);
+                    }
 
-                if(cnpj === "" || cnpj === null){
-                    $('#cnpj').attr('required', true);
-                }
-
+                    if(cnpj === "" || cnpj === null){
+                        $('#cnpj').attr('required', true);
+                    }
+                });
             });
 
         </script>

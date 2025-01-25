@@ -25,6 +25,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'cpf' => ['nullable', 'string', 'size:11','unique:users,cpf,' . $this->user()->id],
+            'cnpj' => ['nullable', 'string', 'size:14','unique:users,cnpj,' . $this->user()->id]
         ];
     }
 }
