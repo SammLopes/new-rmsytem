@@ -47,6 +47,19 @@
             @endif
         </div>
 
+        <div id="cpf-field" class="mt-4 ">
+            <x-input-label for="cpf" :value="__('CPF')" />
+            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf', $user->cpf)" autocomplete="cpf" />
+            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+        </div>
+
+        <!-- CNPJ -->
+        <div id="cnpj-field" class="mt-4 ">
+            <x-input-label for="cnpj" :value="__('CNPJ')" />
+            <x-text-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" :value="old('cnpj', $user->cnpj)" autocomplete="cnpj" />
+            <x-input-error :messages="$errors->get('cnpj')" class="mt-2" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Salvar') }}</x-primary-button>
 
@@ -61,4 +74,27 @@
             @endif
         </div>
     </form>
+
+    @push('scripts')
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log("TEste");
+                let cpf = $('#cpf').val();
+                let cnpj = $('#cnpj').val();
+                console.log("CPF " ,cpf);
+                console.log("CNPJ ", cnpj);
+
+                if(cpf === "" || cpf == null){
+                    $('#cpf').attr('required', true);
+                }
+
+                if(cnpj === "" || cnpj === null){
+                    $('#cnpj').attr('required', true);
+                }
+
+            });
+
+        </script>
+    @endpush
 </section>
