@@ -37,6 +37,7 @@ class ClienteController extends Controller
             foreach ($request->contatos as $contato) {
                 Contato::create([
                     'nome' => $contato['nome'],
+                    'cpf' => $contato['cpf'] ?? null,
                     'telefone_1' => $contato['telefone_1'],
                     'telefone_2' => $contato['telefone_2'] ?? null,
                     'cliente_id' => $cliente->id,

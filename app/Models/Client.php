@@ -10,6 +10,6 @@ class Client extends Model
     protected $fillable = ['cpf', 'cnpj', 'nome', 'razao_social', 'telefone_1', 'telefone_2'];
     public function contatos(): HasMany
     {
-        return $this->hasMany(Contato::class);
+        return $this->hasMany(ClientContact::class);
     }
 }

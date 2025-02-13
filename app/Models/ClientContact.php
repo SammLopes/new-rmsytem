@@ -10,6 +10,6 @@ class ClientContact extends Model
 
     public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Client::class);
     }
 }
