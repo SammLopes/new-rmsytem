@@ -81,94 +81,113 @@
     </div>
 
     <x-modal name="cadastrar-cliente-contato" focusable>
-        <title>
-            <h2>Cadastrar Cliente e Contatos</h2>
-        </title>
 
-        <div class="container">
-            <form method="POST" action="{{ route('cliente.store') }}">
+        <div class="mx-auto px-4 py-4">
+            <form method="POST" action="{{ route('cliente.store') }}" class="mt-6 space-y-6">
                 @csrf
 
                 <!-- Dados do Cliente -->
-                <div class="card mb-4">
-                    <div class="card-header">Dados do Cliente</div>
-                    <div class="card-body">
+                <div class="mb-4">
+                    <div class="text-center font-bold text-lg" >Dados do Cliente</div >
+                    <div >
                         <div class="mb-3">
-                            <label for="nome" class="form-label">Nome do Cliente</label>
-                            <input type="text" class="form-control" id="nome" name="nome" required>
+                            <x-input-label for="input_nome" :value="__('Nome')" />
+                            <x-text-input type="text"  class="mt-1 block w-full" autocomplete="input_nome" id="input_nome" name="input_nome" placeholder="Nome" required />
                         </div>
                         <div class="mb-3">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00">
+                            <x-input-label for="input_cpf" :value="__('CPF')"/>
+                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
                         </div>
                         <div class="mb-3">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                            <x-input-label for="input_cnpj" :value="__('CNPJ')" />
+                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cnpj" id="input_cnpj" name="input_cnpj" placeholder="000.000.000-00" required />
+                        </div>
+                        <div class="mb-3">
+                            <x-input-label for="input_telefone" :value="__('Telefone')" />
+                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_telefone" id="input_telefone" name="input_telefone" placeholder="(00) 00000-0000" required />
+                        </div>
+                        <div class="mb-3">
+                            <x-input-label for="input_telefone_2" :value="__('Telefone 2 (Opcional)')" />
+                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_telefone_2" id="input_telefone_2" name="input_telefone_2" placeholder="(00) 00000-0000"  />
                         </div>
                     </div>
                 </div>
 
-                <!-- Dados dos Contatos -->
                 <div class="card mb-4">
-                    <div class="card-header">Contatos</div>
-                    <div class="card-body">
+                    <div class=" text-center text-lg">Contatos</div>
+                    <div >
                         <div id="contatos">
-                            <!-- Primeiro Contato -->
-                            <div class="contato mb-3">
+
+                            <div class="contato mb-3 grid grid-cols-2 gap-2">
                                 <div class="mb-3">
-                                    <label class="form-label">Nome do Contato</label>
-                                    <input type="text" class="form-control" name="contatos[0][nome]" required>
+                                    <x-input-label for="input_contato_nome" :value="__('Nome do Contato 1')" />
+                                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[0][nome]" placeholder="Nome" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Telefone 1</label>
-                                    <input type="text" class="form-control" name="contatos[0][telefone_1]" placeholder="(00) 00000-0000" required>
+                                    <x-input-label for="input_cpf" :value="__('CPF')"/>
+                                    <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Telefone 2 (Opcional)</label>
-                                    <input type="text" class="form-control" name="contatos[0][telefone_2]" placeholder="(00) 00000-0000">
+                                    <x-input-label for="input_contato_telefone" :value="__('Telefone 1')" />
+                                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[0][telefone_1]" placeholder="(00) 00000-0000" required />
                                 </div>
-                                <button type="button" class="btn btn-danger btn-sm remover-contato">Remover</button>
+                                <div class="mb-3">
+
+                                </div>
                             </div>
+
                         </div>
-                        <button type="button" class="btn btn-secondary" id="adicionar-contato">Adicionar Contato</button>
+                        <div class="flex items-center justify-end">
+                            <x-primary-button id="adicionar-contato">{{__('Adicionar Contato')}}</x-primary-button>
+                        </div>
+
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <div class="flex items-center justify-end mb-2">
+                    <x-primary-button type="submit" >{{__('Cadastrar')}}</x-primary-button>
+                </div>
             </form>
         </div>
     </x-modal>
 </x-app-layout>
 <script>
+    let index = 0
+
     document.getElementById('adicionar-contato').addEventListener('click', function() {
         const contatosDiv = document.getElementById('contatos');
         const novoContato = document.createElement('div');
-        const index = contatosDiv.children.length;
+        index = contatosDiv.children.length + 1;
+        console.log(index);
+        if(index <= 3){
+            novoContato.classList.add('contato', 'mb-3', 'grid', 'grid-cols-2','gap-2');
+            novoContato.innerHTML = `
+                <div class="mb-3">
+                    <x-input-label :value="__('Nome do Contato ${index}')"/>
+                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[${index}][nome]" placeholder="Nome" required/>
+                </div>
+                <div class="mb-3">
+                    <x-input-label for="input_cpf" :value="__('CPF')"/>
+                    <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
+                </div>
+                <div class="mb-3">
+                    <x-input-label :value="__('Telefone 1')"/>
+                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[${index}][telefone_1]" placeholder="(00) 00000-0000" required />
+                </div>
+                <div class=" flex items-center justify-end mt-2 mb-1">
+                    <x-danger-button type="button" class="btn btn-danger btn-sm remover-contato">{{__('Remover')}}</x-danger-button>
+                </div>
+            `;
 
-        novoContato.classList.add('contato', 'mb-3');
-        novoContato.innerHTML = `
-    <div class="mb-3">
-        <label class="form-label">Nome do Contato</label>
-        <input type="text" class="form-control" name="contatos[${index}][nome]" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Telefone 1</label>
-        <input type="text" class="form-control" name="contatos[${index}][telefone_1]" placeholder="(00) 00000-0000" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Telefone 2 (Opcional)</label>
-        <input type="text" class="form-control" name="contatos[${index}][telefone_2]" placeholder="(00) 00000-0000">
-    </div>
-    <button type="button" class="btn btn-danger btn-sm remover-contato">Remover</button>
-`;
-
-        contatosDiv.appendChild(novoContato);
+            contatosDiv.appendChild(novoContato);
+        } else {
+            alert("Só pode registrar dois contatos")
+        }
     });
 
-    // Remover contato
     document.getElementById('contatos').addEventListener('click', function(e) {
         if (e.target.classList.contains('remover-contato')) {
             e.target.closest('.contato').remove();
+            index--;
         }
     });
 </script>
