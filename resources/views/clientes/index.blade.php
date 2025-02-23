@@ -96,19 +96,19 @@
                         </div>
                         <div class="mb-3">
                             <x-input-label for="input_cpf" :value="__('CPF')"/>
-                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
+                            <x-text-input type="text" class="mt-1 block w-full mask-cpf" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
                         </div>
                         <div class="mb-3">
                             <x-input-label for="input_cnpj" :value="__('CNPJ')" />
-                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cnpj" id="input_cnpj" name="input_cnpj" placeholder="000.000.000-00" required />
+                            <x-text-input type="text" class="mt-1 block w-full mask-cnpj" autocomplete="input_cnpj" id="input_cnpj" name="input_cnpj" placeholder="00.000.000/0000-00" required />
                         </div>
                         <div class="mb-3">
                             <x-input-label for="input_telefone" :value="__('Telefone')" />
-                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_telefone" id="input_telefone" name="input_telefone" placeholder="(00) 00000-0000" required />
+                            <x-text-input type="text" class="mt-1 block w-full mask-celular" autocomplete="input_telefone" id="input_telefone" name="input_telefone" placeholder="(00) 00000-0000" required />
                         </div>
                         <div class="mb-3">
                             <x-input-label for="input_telefone_2" :value="__('Telefone 2 (Opcional)')" />
-                            <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_telefone_2" id="input_telefone_2" name="input_telefone_2" placeholder="(00) 00000-0000"  />
+                            <x-text-input type="text" class="mt-1 block w-full mask-celular" autocomplete="input_telefone_2" id="input_telefone_2" name="input_telefone_2" placeholder="(00) 00000-0000"  />
                         </div>
                     </div>
                 </div>
@@ -125,11 +125,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <x-input-label for="input_cpf" :value="__('CPF')"/>
-                                    <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
+                                    <x-text-input type="text" class="mt-1 block w-full mask-cpf" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
                                 </div>
                                 <div class="mb-3">
                                     <x-input-label for="input_contato_telefone" :value="__('Telefone 1')" />
-                                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[0][telefone_1]" placeholder="(00) 00000-0000" required />
+                                    <x-text-input type="text" class="mt-1 block w-full mask-celular" name="contatos[0][telefone_1]" placeholder="(00) 00000-0000" required />
                                 </div>
                                 <div class="mb-3">
 
@@ -151,8 +151,8 @@
     </x-modal>
 </x-app-layout>
 <script>
-    let index = 0
 
+    let index = 0
     document.getElementById('adicionar-contato').addEventListener('click', function() {
         const contatosDiv = document.getElementById('contatos');
         const novoContato = document.createElement('div');
@@ -190,4 +190,5 @@
             index--;
         }
     });
+
 </script>
