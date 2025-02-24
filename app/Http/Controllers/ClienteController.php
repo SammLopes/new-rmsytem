@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreClienteWithContatosRequest;
 
 class ClienteController extends Controller
 {
@@ -30,6 +31,8 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteWithContatosRequest $request)
     {
+//        echo('Teste de função para armazenar cliente');
+//        exit;
         DB::transaction(function () use ($request) {
 
             $cliente = Client::create($request->only('nome','cpf','cnpj','razao_social','telefone_1','telefone_2'));

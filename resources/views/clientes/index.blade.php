@@ -86,7 +86,6 @@
             <form method="POST" action="{{ route('cliente.store') }}" class="mt-6 space-y-6">
                 @csrf
 
-                <!-- Dados do Cliente -->
                 <div class="mb-4">
                     <div class="text-center font-bold text-lg" >Dados do Cliente</div >
                     <div >
@@ -101,6 +100,10 @@
                         <div class="mb-3">
                             <x-input-label for="input_cnpj" :value="__('CNPJ')" />
                             <x-text-input type="text" class="mt-1 block w-full mask-cnpj" autocomplete="input_cnpj" id="input_cnpj" name="input_cnpj" placeholder="00.000.000/0000-00" required />
+                        </div>
+                        <div class="mb-3">
+                            <x-input-label for="input_razao_social" :value="__('Razão Social')" />
+                            <x-text-input type="text"  class="mt-1 block w-full" autocomplete="input_razao_social" id="input_razao_social" name="input_razao_social" placeholder="Nome" required />
                         </div>
                         <div class="mb-3">
                             <x-input-label for="input_telefone" :value="__('Telefone')" />
@@ -125,7 +128,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <x-input-label for="input_cpf" :value="__('CPF')"/>
-                                    <x-text-input type="text" class="mt-1 block w-full mask-cpf" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
+                                    <x-text-input type="text" class="mt-1 block w-full mask-cpf" autocomplete="input_cpf" name="contatos[0][cpf]" placeholder="000.000.000-00"/>
                                 </div>
                                 <div class="mb-3">
                                     <x-input-label for="input_contato_telefone" :value="__('Telefone 1')" />
@@ -167,11 +170,11 @@
                 </div>
                 <div class="mb-3">
                     <x-input-label for="input_cpf" :value="__('CPF')"/>
-                    <x-text-input type="text" class="mt-1 block w-full" autocomplete="input_cpf" id="input_cpf" name="input_cpf" placeholder="000.000.000-00"/>
+                    <x-text-input type="text" class="mt-1 block w-full mask-cpf" autocomplete="input_cpf" name="contatos[${index}][cpf]" placeholder="000.000.000-00"/>
                 </div>
                 <div class="mb-3">
                     <x-input-label :value="__('Telefone 1')"/>
-                    <x-text-input type="text" class="mt-1 block w-full" name="contatos[${index}][telefone_1]" placeholder="(00) 00000-0000" required />
+                    <x-text-input type="text" class="mt-1 block w-full mask-celular" name="contatos[${index}][telefone_1]" placeholder="(00) 00000-0000" required />
                 </div>
                 <div class=" flex items-center justify-end mt-2 mb-1">
                     <x-danger-button type="button" class="btn btn-danger btn-sm remover-contato">{{__('Remover')}}</x-danger-button>
@@ -190,5 +193,22 @@
             index--;
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function(){
+        $(document).ready(function (){
+            $('#input_nome').val('Samuel Paviotti Lopes');
+            $('#input_cpf').val('16971633784');
+            $('#input_telefone').val('27997353121');
+            $('#input_telefone_2').val('27997353121');
+            $('#input_cnpj').val('33.861.378/0001-39');
+            $('#input_razao_social').val('EMPRESA TESTE');
+
+            $('input[name="contatos[0][nome]"]').val('Contato 1');
+            $('input[name="contatos[0][cpf]"]').val('327.217.650-00');
+            $('input[name="contatos[0][telefone_1]"]').val('27997353121');
+
+        })
+    })
+
 
 </script>
